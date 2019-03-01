@@ -13,6 +13,11 @@ function makeBoard(num){
 
 function startGame () {
   makeBoard(4)
+  for (var i = 0; i < board.cells.length; i++) {
+    board.cells[i].surroundingMines = countSurroundingMines(board.cells[i]);
+  }
+  document.addEventListener("click", checkForWin)
+  document.addEventListener("contextmenu", checkForWin)
   // Don't remove this function call: it makes the game work!
   lib.initBoard()
 }
@@ -26,6 +31,7 @@ function isMineRandom(percentage) {
     return true;
   }
 }
+
 // Define this function to look for a win condition:
 //
 // 1. Are all of the cells that are NOT mines visible?
@@ -46,5 +52,13 @@ function checkForWin () {
 // It will return cell objects in an array. You should loop through 
 // them, counting the number of times `cell.isMine` is true.
 function countSurroundingMines (cell) {
+  var surroundingCells = getSurroundingCells(cell.row, cell.col);
+  var surroundingCellsMine = [];
+  for (var i = 0; i < surroundingCells.length; i++) {
+    if (surroundingCells[i].isMine === true) {
+      surroundingCellsMine.push(surroundingCells[i]);
+    }
+  }
+  return surroundingCellsMine.length;
 }
 
