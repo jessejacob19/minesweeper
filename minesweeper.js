@@ -1,13 +1,31 @@
 document.addEventListener('DOMContentLoaded', startGame)
 
 // Define your `board` object here!
-// var board = 
+var board = {};
+board.cells = [];
+
+function makeBoard(num){
+  for (var i =0; i < num; i++)
+    for (var j = 0; j < num; j++) {
+      board.cells.push({row: i, col: j, isMine: isMineRandom(0.2), isMarked: false, hidden: true, surroundingMines: 0})
+    }
+}
 
 function startGame () {
+  makeBoard(4)
   // Don't remove this function call: it makes the game work!
   lib.initBoard()
 }
 
+function isMineRandom(percentage) {
+  //20%
+  var chance = Math.random()
+  if (chance > percentage) {
+    return false;
+  } else {
+    return true;
+  }
+}
 // Define this function to look for a win condition:
 //
 // 1. Are all of the cells that are NOT mines visible?
