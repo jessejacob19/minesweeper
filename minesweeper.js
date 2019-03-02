@@ -12,6 +12,7 @@ function makeBoard(num){
 }
 
 function startGame () {
+  document.getElementById("button").hidden = true;
   makeBoard(4)
   for (var i = 0; i < board.cells.length; i++) {
     board.cells[i].surroundingMines = countSurroundingMines(board.cells[i]);
@@ -32,6 +33,26 @@ function isMineRandom(percentage) {
   }
 }
 
+function resetBoard() {
+  //delete old board
+  $( ".board" ).empty();
+  //make a new board
+  board = {};
+  board.cells = [];
+  //call startGame
+  lib.displayMessage("Lets Play!");
+  startGame();
+}
+
+function tryAgain() {
+  btn = document.getElementById("button");
+  btn.hidden = false
+  // un hide button
+  btn.addEventListener("click", resetBoard)
+  //wait for button to be clicked
+  //reset board
+}
+
 // Define this function to look for a win condition:
 //
 // 1. Are all of the cells that are NOT mines visible?
@@ -47,6 +68,7 @@ function checkForWin () {
     lib.displayMessage('You win!');
     revealMines()
     removeListeners()
+    tryAgain()
     return;
   } 
   
@@ -66,10 +88,8 @@ function checkForWin () {
     lib.displayMessage('You win!');
     revealMines()
     removeListeners()
+    tryAgain()
     return;
-    // un hide button
-    //wait for button to be clicked
-    //reset board
   }
   
   
