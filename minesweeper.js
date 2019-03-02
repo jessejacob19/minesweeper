@@ -37,10 +37,47 @@ function isMineRandom(percentage) {
 // 1. Are all of the cells that are NOT mines visible?
 // 2. Are all of the mines marked?
 function checkForWin () {
+  var win = true
+  for (var i = 0; i < board.cells.length; i++) {
+    if (board.cells[i].isMine === false && board.cells[i].hidden === true) {
+      win = false;
+    }
+  }
+  if (win === true ) {
+    lib.displayMessage('You win!');
+    revealMines()
+    removeListeners()
+    return;
+  } 
+  
+  var mineArray = []
+  for (var i = 0; i < board.cells.length; i++) {
+    if (board.cells[i].isMine === true) {
+      mineArray.push(board.cells[i])
+    }
+  }
+  var mark = true;
+  for (var i = 0; i < mineArray.length; i++) {
+    if (mineArray[i].isMarked === false) {
+      mark = false;
+    }
+  }
+  if (mark === true) {
+    lib.displayMessage('You win!');
+    revealMines()
+    removeListeners()
+    return;
+    // un hide button
+    //wait for button to be clicked
+    //reset board
+  }
+  
+  
 
+  
   // You can use this function call to declare a winner (once you've
   // detected that they've won, that is!)
-  //   lib.displayMessage('You win!')
+  //   
 }
 
 // Define this function to count the number of mines around the cell
